@@ -170,9 +170,9 @@ public final class McpToolUtils {
 		var tool = new McpSchema.Tool(toolCallback.getToolDefinition().name(),
 				toolCallback.getToolDefinition().description(), toolCallback.getToolDefinition().inputSchema());
 
-		return new McpServerFeatures.SyncToolSpecification(tool, (exchange, request) -> {
+		return new McpServerFeatures.SyncToolSpecification(tool, (exchange, requestArguments) -> {
 			try {
-				String callResult = toolCallback.call(ModelOptionsUtils.toJsonString(request),
+				String callResult = toolCallback.call(ModelOptionsUtils.toJsonString(requestArguments),
 						new ToolContext(Map.of(TOOL_CONTEXT_MCP_EXCHANGE_KEY, exchange)));
 				if (mimeType != null && mimeType.toString().startsWith("image")) {
 					return new McpSchema.CallToolResult(List
